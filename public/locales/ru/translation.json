@@ -1,0 +1,9 @@
+{
+  "nav.home": "Конструктор",
+  "nav.orders": "Лента заказов",
+  "nav.profile": "Профиль",
+  "home.greeting": "Привет, {{username}}!",
+  "profile.nav.profile": "Профиль",
+  "profile.nav.orders": "Заказы",
+  "profile.nav.logout": "Выход"
+}

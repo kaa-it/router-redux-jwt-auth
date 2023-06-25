@@ -1,0 +1,9 @@
+{
+  "nav.home": "Constructor",
+  "nav.orders": "Order feed",
+  "nav.profile": "Profile",
+  "home.greeting": "Hello, {{username}}!",
+  "profile.nav.profile": "Profile",
+  "profile.nav.orders": "Orders",
+  "profile.nav.logout": "Logout"
+}
