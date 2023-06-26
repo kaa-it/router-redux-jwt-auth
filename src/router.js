@@ -8,6 +8,7 @@ import { RootLayout } from './components/root-layout';
 import { RootErrorPage } from './components/root-error-page';
 import { ProfileLayout } from './components/profile-layout';
 import { Orders } from './pages/orders';
+import { ProfileLayoutErrorPage } from './components/profile-layout-error-page';
 
 export const router = createBrowserRouter([
   {
@@ -27,12 +28,17 @@ export const router = createBrowserRouter([
             element: <ProfileLayout />,
             children: [
               {
-                index: true,
-                element: <Profile />,
-              },
-              {
-                path: PATH.ORDERS,
-                element: <Orders />,
+                errorElement: <ProfileLayoutErrorPage />,
+                children: [
+                  {
+                    index: true,
+                    element: <Profile />,
+                  },
+                  {
+                    path: PATH.ORDERS,
+                    element: <Orders />,
+                  },
+                ],
               },
             ],
           },

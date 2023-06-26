@@ -6,7 +6,6 @@ export const Home = () => {
 
   return (
     <>
-      <div>Home</div>
       <h1>{t('home.greeting', { username })}</h1>
     </>
   );
