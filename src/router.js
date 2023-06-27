@@ -9,6 +9,8 @@ import { RootErrorPage } from './components/root-error-page';
 import { ProfileLayout } from './components/profile-layout';
 import { Orders } from './pages/orders';
 import { ProfileLayoutErrorPage } from './components/profile-layout-error-page';
+import { ingredientsLoader } from './services/loaders/ingredients-loader';
+import { queryClient } from './services/api';
 
 export const router = createBrowserRouter([
   {
@@ -22,6 +24,7 @@ export const router = createBrowserRouter([
           {
             index: true,
             element: <Home />,
+            loader: Home.getIngredients(queryClient),
           },
           {
             path: PATH.PROFILE,

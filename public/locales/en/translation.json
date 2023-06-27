@@ -3,6 +3,7 @@
   "nav.orders": "Order feed",
   "nav.profile": "Profile",
   "home.greeting": "Hello, {{username}}!",
+  "home.ingredientsCount": "Total found {{count}} ingredients",
   "profile.nav.profile": "Profile",
   "profile.nav.orders": "Orders",
   "profile.nav.logout": "Logout"

@@ -22,7 +22,7 @@ const backend = {
 const supportedLngs = ['en', 'ru'];
 
 i18n.use(Backend).use(LanguageDetector).use(initReactI18next).init({
-  debug: true,
+  debug: false,
   supportedLngs,
   fallbackLng: 'en',
   detection,

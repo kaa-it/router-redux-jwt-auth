@@ -5,3 +5,7 @@ export const PATH = {
   ORDERS: 'orders',
   LOGIN: '/login',
 };
+
+export const QUERYKEY = {
+  INGREDIENTS: 'ingredients',
+};
