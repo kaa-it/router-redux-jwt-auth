@@ -9,8 +9,9 @@ import { RootErrorPage } from './components/root-error-page';
 import { ProfileLayout } from './components/profile-layout';
 import { Orders } from './pages/orders';
 import { ProfileLayoutErrorPage } from './components/profile-layout-error-page';
-import { ingredientsLoader } from './services/loaders/ingredients-loader';
 import { queryClient } from './services/api';
+import { store } from './app/store';
+import { ProtectedRoute } from './components/protected-route';
 
 export const router = createBrowserRouter([
   {
@@ -26,20 +27,30 @@ export const router = createBrowserRouter([
             element: <Home />,
             loader: Home.getIngredients(queryClient),
           },
+
+          // Routes with auth needed
           {
-            path: PATH.PROFILE,
-            element: <ProfileLayout />,
+            element: <ProtectedRoute />,
+            errorElement: <p>Protected error</p>,
+            loader: ProtectedRoute.getUser(queryClient),
             children: [
               {
-                errorElement: <ProfileLayoutErrorPage />,
+                path: PATH.PROFILE,
+                element: <ProfileLayout />,
+                action: ProfileLayout.action(store.dispatch),
                 children: [
                   {
-                    index: true,
-                    element: <Profile />,
-                  },
-                  {
-                    path: PATH.ORDERS,
-                    element: <Orders />,
+                    errorElement: <ProfileLayoutErrorPage />,
+                    children: [
+                      {
+                        index: true,
+                        element: <Profile />,
+                      },
+                      {
+                        path: PATH.ORDERS,
+                        element: <Orders />,
+                      },
+                    ],
                   },
                 ],
               },
@@ -48,6 +59,7 @@ export const router = createBrowserRouter([
           {
             path: PATH.LOGIN,
             element: <Login />,
+            action: Login.action(store.dispatch),
           },
           {
             path: PATH.ORDER_FEED,

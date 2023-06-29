@@ -8,4 +8,11 @@ export const PATH = {
 
 export const QUERYKEY = {
   INGREDIENTS: 'ingredients',
+  USER: 'user',
+};
+
+export const COOKIE = {
+  ACCESSTOKEN: 'accessToken',
+  REFRESHTOKEN: 'refreshToken',
+  LOGEDIN: 'logedIn',
 };
