@@ -2,16 +2,15 @@ import { AuthService } from '../api/auth-service';
 import Cookies from 'js-cookie';
 import { setUser } from '../user-slice';
 import { redirect } from 'react-router-dom';
-import { COOKIE, PATH } from '../../utils/config';
+import { COOKIE } from '../../utils/config';
 
 export const loginAction =
   (dispatch) =>
   async ({ request, params }) => {
     const formData = await request.formData();
-    const credentials = Object.fromEntries(formData);
+    const { email, password, redirectTo } = Object.fromEntries(formData);
 
-    const { accessToken: token, refreshToken, user } = await AuthService.login(credentials);
-
+    const { accessToken: token, refreshToken, user } = await AuthService.login({ email, password });
     const accessToken = token.split(' ')[1];
 
     // expires in days: accessToken expires at 20 min
@@ -21,5 +20,5 @@ export const loginAction =
 
     dispatch(setUser({ user }));
 
-    return redirect(PATH.HOME);
+    return redirect(redirectTo);
   };

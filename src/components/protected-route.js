@@ -1,31 +1,22 @@
-import { Navigate, Outlet, redirect } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
+import { Navigate, useLocation } from 'react-router-dom';
 import { PATH } from '../utils/config';
-import { userLoader, userQuery } from '../services/loaders/user-loader';
+import { useSelector } from 'react-redux';
+import { selectUser } from '../services/user-slice';
 
-const ProtectedRoute = () => {
-  const { queryKey, queryFn } = userQuery();
-  const { data: user } = useQuery({
-    queryKey,
-    queryFn,
-  });
+export const ProtectedRoute = ({ onlyUnAuth = false, component }) => {
+  const user = useSelector(selectUser);
+  const location = useLocation();
 
-  console.log('Protected get user:', user);
-
-  // if (user) {
-  //   console.log('YOU are auth, but Auth NOT needed');
-  //   return <Navigate to={PATH.LOGIN} replace />;
-  // }
-
-  if (user.ok === false) {
-    console.log('YOU are NOT auth, but auth NEEDED');
-    return <Navigate to={PATH.LOGIN} replace />;
+  // user unauth and route only for auth users
+  if (!user && !onlyUnAuth) {
+    return <Navigate to={PATH.LOGIN} state={{ from: location }} />;
   }
 
-  console.log('ALL OK - auth and auth needed');
-  return <Outlet />;
+  if (user && onlyUnAuth) {
+    const { from } = location.state || { from: { pathname: PATH.HOME } };
+    console.log('from (only unAuth can)', from);
+    return <Navigate to={from} />;
+  }
+
+  return component;
 };
-
-ProtectedRoute.getUser = userLoader;
-
-export { ProtectedRoute };

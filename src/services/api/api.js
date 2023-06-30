@@ -4,6 +4,8 @@ import Cookies from 'js-cookie';
 import { AuthService } from './auth-service';
 import { COOKIE, PATH } from '../../utils/config';
 import { redirect } from 'react-router-dom';
+import { store } from '../../app/store';
+import { logOut } from '../user-slice';
 
 const baseURL = 'https://norma.nomoreparties.space/api';
 const headers = {
@@ -61,13 +63,17 @@ authApi.interceptors.response.use(
           retry: true,
         });
       } catch (err) {
-        console.log('refresh invalid');
-        return redirect(PATH.LOGIN);
-        return Promise.reject(err);
+        console.log('refresh invalid - logout user');
+        store.dispatch(logOut());
+        Cookies.remove(COOKIE.ACCESSTOKEN);
+        Cookies.remove(COOKIE.LOGEDIN);
+        Cookies.remove(COOKIE.REFRESHTOKEN);
+        // return redirect(PATH.LOGIN);
+        // return Promise.reject(err);
       }
     }
 
-    return Promise.reject(err);
+    // return Promise.reject(err);
   }
 );
 
@@ -75,7 +81,7 @@ export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       refetchOnWindowFocus: false,
-      refetchOnMount: true,
+      refetchOnMount: false,
       retry: 1,
     },
   },

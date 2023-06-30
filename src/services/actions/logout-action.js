@@ -13,7 +13,6 @@ import { persistor } from '../../app/store';
 
 export const logoutAction = (dispatch) => async () => {
   const refreshToken = Cookies.get(COOKIE.REFRESHTOKEN);
-  console.log('refresh:', refreshToken);
 
   try {
     await AuthService.logout(refreshToken);

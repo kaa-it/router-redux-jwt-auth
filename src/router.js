@@ -28,34 +28,27 @@ export const router = createBrowserRouter([
             loader: Home.getIngredients(queryClient),
           },
 
-          // Routes with auth needed
           {
-            element: <ProtectedRoute />,
-            errorElement: <p>Protected error</p>,
-            loader: ProtectedRoute.getUser(queryClient),
+            path: PATH.PROFILE,
+            element: <ProtectedRoute component={<ProfileLayout />} />,
+            action: ProfileLayout.action(store.dispatch),
             children: [
               {
-                path: PATH.PROFILE,
-                element: <ProfileLayout />,
-                action: ProfileLayout.action(store.dispatch),
+                errorElement: <ProfileLayoutErrorPage />,
                 children: [
                   {
-                    errorElement: <ProfileLayoutErrorPage />,
-                    children: [
-                      {
-                        index: true,
-                        element: <Profile />,
-                      },
-                      {
-                        path: PATH.ORDERS,
-                        element: <Orders />,
-                      },
-                    ],
+                    index: true,
+                    element: <Profile />,
+                  },
+                  {
+                    path: PATH.ORDERS,
+                    element: <Orders />,
                   },
                 ],
               },
             ],
           },
+
           {
             path: PATH.LOGIN,
             element: <Login />,

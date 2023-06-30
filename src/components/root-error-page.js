@@ -7,7 +7,7 @@ export const RootErrorPage = () => {
 
   return (
     <div>
-      <h1>Oops! Something went wrong :(</h1>
+      <h1>Oops! Something went wrong at Home :(</h1>
       <p>
         Error {error.status}: {error.statusText}
       </p>

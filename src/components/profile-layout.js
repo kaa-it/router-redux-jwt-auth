@@ -1,15 +1,11 @@
 import { useTranslation } from 'react-i18next';
-import { COOKIE, PATH } from '../utils/config';
-import { Form, NavLink, Navigate, Outlet, useLocation } from 'react-router-dom';
 import clsx from 'clsx';
-import Cookies from 'js-cookie';
-import { useQuery } from '@tanstack/react-query';
+import { PATH } from '../utils/config';
+import { Form, NavLink, Outlet } from 'react-router-dom';
 import { logoutAction } from '../services/actions/logout-action';
-import { userLoader, userQuery } from '../services/loaders/user-loader';
 
 const ProfileLayout = () => {
   const { t } = useTranslation();
-  console.log('ProfileLayout mounted');
 
   const paths = [
     {
@@ -22,14 +18,7 @@ const ProfileLayout = () => {
     },
   ];
 
-  const islogedIn = Cookies.get(COOKIE.LOGEDIN);
-  const location = useLocation();
-
-  const { queryKey, queryFn } = userQuery();
-  const { data: user } = useQuery({ queryKey, queryFn, refetchOnMount: true });
-  console.log('user in profile-layout', user);
-
-  return islogedIn || user ? (
+  return (
     <div className="flex flex-row gap-8 m-7">
       <section>
         <nav className="flex flex-col gap-4">
@@ -54,12 +43,9 @@ const ProfileLayout = () => {
         <Outlet />
       </section>
     </div>
-  ) : (
-    <Navigate to={PATH.LOGIN} />
   );
 };
 
 ProfileLayout.action = logoutAction;
-ProfileLayout.loader = userLoader;
 
 export { ProfileLayout };

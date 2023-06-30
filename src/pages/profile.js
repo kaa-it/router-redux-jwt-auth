@@ -1,11 +1,8 @@
-import { useQuery } from '@tanstack/react-query';
-import React from 'react';
-import { userQuery } from '../services/loaders/user-loader';
+import { useSelector } from 'react-redux';
+import { selectUser } from '../services/user-slice';
 
 export const Profile = () => {
-  const { data: user } = useQuery(userQuery());
-
-  const { name, email } = user;
+  const { name, email } = useSelector(selectUser);
 
   return (
     <div>
