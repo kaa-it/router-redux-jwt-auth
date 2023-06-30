@@ -48,13 +48,15 @@ authApi.interceptors.response.use(
     if (errMessage?.includes('should be authorised') && !originalRequest.retry) {
       try {
         originalRequest.retry = true;
+        console.log('try refresh token');
         const rs = await AuthService.refreshAccessToken(Cookies.get(COOKIE.REFRESHTOKEN));
 
         const { accessToken: token, refreshToken } = rs.data;
         const accessToken = token.split(' ')[1];
+        console.log('refresh success, new successToken:', accessToken);
 
-        Cookies.set(COOKIE.ACCESSTOKEN, accessToken, { expires: 1 / 72 });
-        Cookies.set(COOKIE.LOGEDIN, true, { expires: 1 / 72 });
+        Cookies.set(COOKIE.ACCESSTOKEN, accessToken, { expires: 1 / 2000 });
+        Cookies.set(COOKIE.LOGEDIN, true, { expires: 1 / 2000 });
         Cookies.set(COOKIE.REFRESHTOKEN, refreshToken, { expires: 7 });
 
         return authApi({
@@ -63,7 +65,7 @@ authApi.interceptors.response.use(
           retry: true,
         });
       } catch (err) {
-        console.log('refresh invalid - logout user');
+        console.log('refresh token invalid - logout user');
         store.dispatch(logOut());
         Cookies.remove(COOKIE.ACCESSTOKEN);
         Cookies.remove(COOKIE.LOGEDIN);

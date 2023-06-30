@@ -14,8 +14,8 @@ export const loginAction =
     const accessToken = token.split(' ')[1];
 
     // expires in days: accessToken expires at 20 min
-    Cookies.set(COOKIE.ACCESSTOKEN, accessToken, { expires: 1 / 72 });
-    Cookies.set(COOKIE.LOGEDIN, true, { expires: 1 / 72 });
+    Cookies.set(COOKIE.ACCESSTOKEN, accessToken, { expires: 1 / 2000 });
+    Cookies.set(COOKIE.LOGEDIN, true, { expires: 1 / 2000 });
     Cookies.set(COOKIE.REFRESHTOKEN, refreshToken, { expires: 7 });
 
     dispatch(setUser({ user }));

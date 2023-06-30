@@ -20,14 +20,10 @@ export const logoutAction = (dispatch) => async () => {
     Cookies.remove(COOKIE.ACCESSTOKEN);
     Cookies.remove(COOKIE.REFRESHTOKEN);
     Cookies.remove(COOKIE.LOGEDIN);
-
+  } catch (err) {
+  } finally {
     dispatch(logOut());
     persistor.purge();
-
-    return redirect(PATH.HOME);
-  } catch (err) {
-    throw new Response('', {
-      statusText: 'Logout error',
-    });
+    return redirect(PATH.LOGIN);
   }
 };

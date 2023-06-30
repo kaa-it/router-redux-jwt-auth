@@ -12,6 +12,7 @@ import { ProfileLayoutErrorPage } from './components/profile-layout-error-page';
 import { queryClient } from './services/api';
 import { store } from './app/store';
 import { ProtectedRoute } from './components/protected-route';
+import { userLoader } from './services/loaders/user-loader';
 
 export const router = createBrowserRouter([
   {
@@ -32,6 +33,7 @@ export const router = createBrowserRouter([
             path: PATH.PROFILE,
             element: <ProtectedRoute component={<ProfileLayout />} />,
             action: ProfileLayout.action(store.dispatch),
+            loader: userLoader(queryClient),
             children: [
               {
                 errorElement: <ProfileLayoutErrorPage />,

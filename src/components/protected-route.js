@@ -1,10 +1,10 @@
 import { Navigate, useLocation } from 'react-router-dom';
 import { PATH } from '../utils/config';
-import { useSelector } from 'react-redux';
-import { selectUser } from '../services/user-slice';
+import { useQuery } from '@tanstack/react-query';
+import { userQuery } from '../services/loaders/user-loader';
 
 export const ProtectedRoute = ({ onlyUnAuth = false, component }) => {
-  const user = useSelector(selectUser);
+  const { data: user } = useQuery(userQuery());
   const location = useLocation();
 
   // user unauth and route only for auth users
@@ -14,7 +14,6 @@ export const ProtectedRoute = ({ onlyUnAuth = false, component }) => {
 
   if (user && onlyUnAuth) {
     const { from } = location.state || { from: { pathname: PATH.HOME } };
-    console.log('from (only unAuth can)', from);
     return <Navigate to={from} />;
   }
 
