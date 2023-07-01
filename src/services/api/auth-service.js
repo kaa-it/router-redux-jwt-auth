@@ -25,9 +25,20 @@ const getMe = async () => {
   return await authApi.get('/user');
 };
 
+const editMe = async ({ name, email, password }) => {
+  const res = await authApi.patch('/user', {
+    name,
+    email,
+    password,
+  });
+
+  return res.data;
+};
+
 export const AuthService = {
   login,
   logout,
   refreshAccessToken,
   getMe,
+  editMe,
 };

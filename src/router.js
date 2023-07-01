@@ -42,6 +42,7 @@ export const router = createBrowserRouter([
                   {
                     index: true,
                     element: <Profile />,
+                    action: Profile.updateUser(store.dispatch),
                   },
                   {
                     path: PATH.ORDERS,
