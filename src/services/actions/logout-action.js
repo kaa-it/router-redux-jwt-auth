@@ -4,6 +4,7 @@ import { AuthService } from '../api/auth-service';
 import { logOut } from '../user-slice';
 import Cookies from 'js-cookie';
 import { persistor } from '../../app/store';
+import { TokenService } from '../cookie-service';
 
 // To use multiple actions on one rout you can assign for submit button
 // <button type='submit' name='intent' value='id-for-action'>Submit</button>
@@ -12,14 +13,12 @@ import { persistor } from '../../app/store';
 // switch (actionType) { case 'id-for-action: ....}
 
 export const logoutAction = (dispatch) => async () => {
-  const refreshToken = Cookies.get(COOKIE.REFRESHTOKEN);
+  const refreshToken = TokenService.getRefreshToken();
 
   try {
     await AuthService.logout(refreshToken);
 
-    Cookies.remove(COOKIE.ACCESSTOKEN);
-    Cookies.remove(COOKIE.REFRESHTOKEN);
-    Cookies.remove(COOKIE.LOGEDIN);
+    TokenService.removeTokens();
   } catch (err) {
   } finally {
     dispatch(logOut());

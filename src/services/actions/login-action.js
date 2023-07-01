@@ -3,6 +3,7 @@ import Cookies from 'js-cookie';
 import { setUser } from '../user-slice';
 import { redirect } from 'react-router-dom';
 import { COOKIE } from '../../utils/config';
+import { TokenService } from '../cookie-service';
 
 export const loginAction =
   (dispatch) =>
@@ -14,9 +15,8 @@ export const loginAction =
     const accessToken = token.split(' ')[1];
 
     // expires in days: accessToken expires at 20 min
-    Cookies.set(COOKIE.ACCESSTOKEN, accessToken, { expires: 1 / 2000 });
-    Cookies.set(COOKIE.LOGEDIN, true, { expires: 1 / 2000 });
-    Cookies.set(COOKIE.REFRESHTOKEN, refreshToken, { expires: 7 });
+    TokenService.setAccessToken(accessToken);
+    TokenService.setRefreshToken(refreshToken);
 
     dispatch(setUser({ user }));
 

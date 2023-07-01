@@ -6,6 +6,7 @@ import { COOKIE, PATH } from '../../utils/config';
 import { redirect } from 'react-router-dom';
 import { store } from '../../app/store';
 import { logOut } from '../user-slice';
+import { TokenService } from '../cookie-service';
 
 const baseURL = 'https://norma.nomoreparties.space/api';
 const headers = {
@@ -24,7 +25,7 @@ export const authApi = axios.create({
 
 authApi.interceptors.request.use(
   (config) => {
-    const accessToken = Cookies.get(COOKIE.ACCESSTOKEN);
+    const accessToken = TokenService.getAccessToken();
 
     if (accessToken) {
       config.headers['Authorization'] = `Bearer ${accessToken}`;
@@ -49,15 +50,14 @@ authApi.interceptors.response.use(
       try {
         originalRequest.retry = true;
         console.log('try refresh token');
-        const rs = await AuthService.refreshAccessToken(Cookies.get(COOKIE.REFRESHTOKEN));
+        const rs = await AuthService.refreshAccessToken(TokenService.getRefreshToken());
 
         const { accessToken: token, refreshToken } = rs.data;
         const accessToken = token.split(' ')[1];
         console.log('refresh success, new successToken:', accessToken);
 
-        Cookies.set(COOKIE.ACCESSTOKEN, accessToken, { expires: 1 / 2000 });
-        Cookies.set(COOKIE.LOGEDIN, true, { expires: 1 / 2000 });
-        Cookies.set(COOKIE.REFRESHTOKEN, refreshToken, { expires: 7 });
+        TokenService.setAccessToken(accessToken);
+        TokenService.setRefreshToken(refreshToken);
 
         return authApi({
           ...originalRequest,
@@ -67,15 +67,9 @@ authApi.interceptors.response.use(
       } catch (err) {
         console.log('refresh token invalid - logout user');
         store.dispatch(logOut());
-        Cookies.remove(COOKIE.ACCESSTOKEN);
-        Cookies.remove(COOKIE.LOGEDIN);
-        Cookies.remove(COOKIE.REFRESHTOKEN);
-        // return redirect(PATH.LOGIN);
-        // return Promise.reject(err);
+        TokenService.removeTokens();
       }
     }
-
-    // return Promise.reject(err);
   }
 );
 
