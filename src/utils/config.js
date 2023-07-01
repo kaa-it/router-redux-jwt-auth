@@ -4,6 +4,7 @@ export const PATH = {
   PROFILE: '/profile',
   ORDERS: 'orders',
   LOGIN: '/login',
+  REGISTER: 'register',
 };
 
 export const QUERYKEY = {

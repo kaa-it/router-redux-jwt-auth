@@ -11,8 +11,9 @@ import { Orders } from './pages/orders';
 import { ProfileLayoutErrorPage } from './components/profile-layout-error-page';
 import { queryClient } from './services/api';
 import { store } from './app/store';
-import { ProtectedRoute } from './components/protected-route';
+import { OnlyAuth, OnlyUnAuth } from './components/protected-route';
 import { userLoader } from './services/loaders/user-loader';
+import { Register } from './pages/register';
 
 export const router = createBrowserRouter([
   {
@@ -31,7 +32,7 @@ export const router = createBrowserRouter([
 
           {
             path: PATH.PROFILE,
-            element: <ProtectedRoute component={<ProfileLayout />} />,
+            element: <OnlyAuth component={<ProfileLayout />} />,
             action: ProfileLayout.action(store.dispatch),
             loader: userLoader(queryClient),
             children: [
@@ -53,8 +54,12 @@ export const router = createBrowserRouter([
 
           {
             path: PATH.LOGIN,
-            element: <Login />,
+            element: <OnlyUnAuth component={<Login />} />,
             action: Login.action(store.dispatch),
+          },
+          {
+            path: PATH.REGISTER,
+            element: <OnlyUnAuth component={<Register />} />,
           },
           {
             path: PATH.ORDER_FEED,
