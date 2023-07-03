@@ -5,6 +5,7 @@ export const PATH = {
   ORDERS: 'orders',
   LOGIN: '/login',
   REGISTER: 'register',
+  INGREDIENTS: 'ingredients',
 };
 
 export const QUERYKEY = {
@@ -17,3 +18,5 @@ export const COOKIE = {
   REFRESHTOKEN: 'refreshToken',
   LOGEDIN: 'logedIn',
 };
+
+export const MODAL_PORTAL_EL = document.querySelector('#modal-portal');

@@ -14,20 +14,28 @@ import { store } from './app/store';
 import { OnlyAuth, OnlyUnAuth } from './components/protected-route';
 import { userLoader } from './services/loaders/user-loader';
 import { Register } from './pages/register';
+import { ingredientsLoader } from './services/loaders/ingredients-loader';
+import { IngredientModal } from './components/ingredient-modal';
 
 export const router = createBrowserRouter([
   {
     path: PATH.HOME,
     element: <RootLayout />,
     errorElement: <RootErrorPage />,
+    loader: ingredientsLoader(queryClient),
     children: [
       {
         errorElement: <RootErrorPage />,
         children: [
           {
-            index: true,
+            path: PATH.HOME,
             element: <Home />,
-            loader: Home.getIngredients(queryClient),
+            children: [
+              {
+                path: `${PATH.INGREDIENTS}/:id`,
+                element: <IngredientModal />,
+              },
+            ],
           },
 
           {

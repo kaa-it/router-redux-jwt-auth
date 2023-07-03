@@ -23,8 +23,8 @@ export const Header = () => {
 
   return (
     <header>
-      <nav className="flex justify-center gap-6 border py-4 shadow">
-        {paths.map((path) => (  
+      <nav className="flex justify-center gap-6 border py-4 h-16">
+        {paths.map((path) => (
           <NavLink
             to={path.to}
             key={path.text}

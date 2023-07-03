@@ -1,33 +1,29 @@
 import { useTranslation } from 'react-i18next';
-import { ingredientsLoader, ingredientsQuery } from '../services/loaders/ingredients-loader';
+import { ingredientsQuery } from '../services/loaders/ingredients-loader';
 import { useQuery } from '@tanstack/react-query';
-import { userQuery } from '../services/loaders/user-loader';
+import { Link, Outlet, useLocation } from 'react-router-dom';
+import { PATH } from '../utils/config';
 
 const Home = () => {
   const { t } = useTranslation();
   const { data: ingredients } = useQuery(ingredientsQuery());
-  // const { data: user } = useQuery(userQuery());
-
-  // const username = user?.name;
-  const count = ingredients.length;
+  const location = useLocation();
 
   return (
     <section className="p-4">
-      {/* {username && (
-        <h1 className="font-size- font-bold mb-4">{t('home.greeting', { username })}</h1>
-      )} */}
-      <p className="mb-4">{t('home.ingredientsCount', { count })}</p>
+      <p className="mb-4">{t('home.ingredientsCount', { count: ingredients.length })}</p>
       <ul>
         {ingredients.map((ingredient) => (
           <li key={ingredient._id}>
-            <p>{ingredient.name}</p>
+            <Link to={`${PATH.INGREDIENTS}/${ingredient._id}`} state={{ from: location }}>
+              {ingredient.name}
+            </Link>
           </li>
         ))}
       </ul>
+      <Outlet />
     </section>
   );
 };
-
-Home.getIngredients = ingredientsLoader;
 
 export { Home };

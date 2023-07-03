@@ -1,8 +1,6 @@
 import { AuthService } from '../api/auth-service';
-import Cookies from 'js-cookie';
 import { setUser } from '../user-slice';
 import { redirect } from 'react-router-dom';
-import { COOKIE } from '../../utils/config';
 import { TokenService } from '../cookie-service';
 
 export const loginAction =
