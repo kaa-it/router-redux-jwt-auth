@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie';
-import { COOKIE } from '../utils/config';
+import { COOKIE } from './config';
 
 const expiresAccess = 1 / 2000;
 const expiresRefresh = 7;

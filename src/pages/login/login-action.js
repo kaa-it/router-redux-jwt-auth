@@ -1,7 +1,7 @@
-import { AuthService } from '../api/auth-service';
-import { setUser } from '../user-slice';
 import { redirect } from 'react-router-dom';
-import { TokenService } from '../cookie-service';
+import { TokenService } from '../../utils/cookie-service';
+import { AuthService } from '../../features/auth/services/auth-service';
+import { setUser } from '../../features/user';
 
 export const loginAction =
   (dispatch) =>

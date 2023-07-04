@@ -1,5 +1,5 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { authReducer } from '../services/user-slice';
+import { authReducer } from '../features/user/user-slice';
 import localforage from 'localforage';
 import {
   persistReducer,

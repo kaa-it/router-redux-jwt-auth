@@ -1,8 +1,8 @@
 import { useLocation, useParams } from 'react-router-dom';
-import { Modal } from './modal';
+import { Modal } from '../../../components/modal';
 import { useQuery } from '@tanstack/react-query';
-import { ingredientsQuery } from '../services/loaders/ingredients-loader';
-import { ModalFullScreen } from './modal-fullscreen';
+import { ingredientsQuery } from '../../../layouts/root-layout/ingredients-loader';
+import { ModalFullScreen } from '../../../components/modal-fullscreen';
 
 export const IngredientModal = () => {
   const { data: ingredients } = useQuery(ingredientsQuery());

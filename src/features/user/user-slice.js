@@ -14,7 +14,7 @@ export const authSlice = createSlice({
       state.user = user;
     },
 
-    logOut: () => initialState,
+    removeUser: () => initialState,
   },
 
   // clear cached data with persistor.purge();
@@ -27,7 +27,7 @@ export const authSlice = createSlice({
 
 const authReducer = authSlice.reducer;
 
-export const { setUser, logOut } = authSlice.actions;
+export const { setUser, removeUser } = authSlice.actions;
 
 export const selectUser = (state) => state.auth.user;
 

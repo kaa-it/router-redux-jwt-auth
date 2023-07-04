@@ -1,13 +1,12 @@
-import React from 'react';
 import { Link, useRouteError } from 'react-router-dom';
-import { PATH } from '../utils/config';
+import { PATH } from '../../utils/config';
 
-export const RootErrorPage = () => {
+export const ProfileLayoutErrorPage = () => {
   const error = useRouteError();
 
   return (
     <div>
-      <h1>Oops! Something went wrong at Home :(</h1>
+      <h1>Oops! Something went wrong in Profile:(</h1>
       <p>
         Error {error.status}: {error.statusText}
       </p>

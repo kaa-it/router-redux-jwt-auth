@@ -1,5 +1,5 @@
 import { Outlet, useSearchParams } from 'react-router-dom';
-import { Header } from './header';
+import { Header } from '../header';
 import { useEffect } from 'react';
 
 export const RootLayout = () => {

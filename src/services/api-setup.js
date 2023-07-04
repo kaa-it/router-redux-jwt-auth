@@ -1,12 +1,9 @@
 import { QueryClient } from '@tanstack/react-query';
 import axios from 'axios';
-import Cookies from 'js-cookie';
-import { AuthService } from './auth-service';
-import { COOKIE, PATH } from '../../utils/config';
-import { redirect } from 'react-router-dom';
-import { store } from '../../app/store';
-import { logOut } from '../user-slice';
-import { TokenService } from '../cookie-service';
+import { store } from '../app/store';
+import { TokenService } from '../utils/cookie-service';
+import { AuthService } from '../features/auth';
+import { removeUser } from '../features/user';
 
 const baseURL = 'https://norma.nomoreparties.space/api';
 const headers = {
@@ -66,7 +63,7 @@ authApi.interceptors.response.use(
         });
       } catch (err) {
         console.log('refresh token invalid - logout user');
-        store.dispatch(logOut());
+        store.dispatch(removeUser());
         TokenService.removeTokens();
       }
     }

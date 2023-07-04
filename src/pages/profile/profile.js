@@ -1,10 +1,10 @@
 import { useSelector } from 'react-redux';
-import { selectUser } from '../services/user-slice';
+import { selectUser } from '../../features/user/user-slice';
 import { Form } from 'react-router-dom';
-import { updateUserAction } from '../services/actions/update-user-action';
+import { updateUserAction } from './update-user-action';
 
 const Profile = () => {
-  const { name, email } = useSelector(selectUser);
+  const user = useSelector(selectUser);
 
   return (
     <section>
@@ -15,7 +15,7 @@ const Profile = () => {
             type="email"
             id="email"
             name="email"
-            defaultValue={email}
+            defaultValue={user?.email}
             placeholder="Email"
             className="border p-2"
           />
@@ -25,7 +25,7 @@ const Profile = () => {
             type="text"
             id="name"
             name="name"
-            defaultValue={name}
+            defaultValue={user?.name}
             placeholder="Name"
             className="border p-2"
           />

@@ -1,10 +1,10 @@
 import { useTranslation } from 'react-i18next';
-import { ingredientsQuery } from '../services/loaders/ingredients-loader';
+import { ingredientsQuery } from '../layouts/root-layout/ingredients-loader';
 import { useQuery } from '@tanstack/react-query';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { PATH } from '../utils/config';
 
-const Home = () => {
+export const Home = () => {
   const { t } = useTranslation();
   const { data: ingredients } = useQuery(ingredientsQuery());
   const location = useLocation();
@@ -25,5 +25,3 @@ const Home = () => {
     </section>
   );
 };
-
-export { Home };

@@ -1,8 +1,8 @@
 import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
-import { PATH } from '../utils/config';
+import { PATH } from '../../utils/config';
 import { Form, NavLink, Outlet } from 'react-router-dom';
-import { logoutAction } from '../services/actions/logout-action';
+import { logoutAction } from './logout-action';
 
 const ProfileLayout = () => {
   const { t } = useTranslation();
@@ -46,6 +46,6 @@ const ProfileLayout = () => {
   );
 };
 
-ProfileLayout.action = logoutAction;
+ProfileLayout.logout = logoutAction;
 
 export { ProfileLayout };

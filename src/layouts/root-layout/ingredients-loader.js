@@ -1,5 +1,5 @@
 import { QUERYKEY } from '../../utils/config';
-import { api } from '../api';
+import { api } from '../../services/api-setup';
 
 export const ingredientsQuery = () => ({
   queryKey: [QUERYKEY.INGREDIENTS],

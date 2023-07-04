@@ -1,14 +1,13 @@
 import { QUERYKEY } from '../../utils/config';
-import { AuthService } from '../api/auth-service';
+import { UserService } from '../../features/user';
 
 export const userQuery = () => ({
   queryKey: [QUERYKEY.USER],
   queryFn: async () => {
     try {
-      const user = await AuthService.getMe();
+      const user = await UserService.getMe();
       return user.data.user;
     } catch (err) {
-      console.error('Auth error:', err);
       return null;
     }
   },

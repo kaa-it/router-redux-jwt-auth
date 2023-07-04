@@ -1,4 +1,4 @@
-import { api, authApi } from './api';
+import { api } from '../../../services/api-setup';
 
 const login = async ({ email, password }) => {
   const res = await api.post('/auth/login', {
@@ -21,24 +21,8 @@ const refreshAccessToken = async (refreshToken) => {
   });
 };
 
-const getMe = async () => {
-  return await authApi.get('/user');
-};
-
-const editMe = async ({ name, email, password }) => {
-  const res = await authApi.patch('/user', {
-    name,
-    email,
-    password,
-  });
-
-  return res.data;
-};
-
 export const AuthService = {
   login,
   logout,
   refreshAccessToken,
-  getMe,
-  editMe,
 };
