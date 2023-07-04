@@ -1,9 +1,10 @@
 import { redirect } from 'react-router-dom';
-import { PATH } from '../../utils/config';
+import { PATH, QUERYKEY } from '../../utils/config';
 import { persistor } from '../../app/store';
 import { TokenService } from '../../utils/cookie-service';
 import { removeUser } from '../../features/user';
 import { AuthService } from '../../features/auth';
+import { queryClient } from '../../services/api-setup';
 
 // To use multiple actions on one rout you can assign for submit button
 // <button type='submit' name='intent' value='id-for-action'>Submit</button>
@@ -18,6 +19,7 @@ export const logoutAction = (dispatch) => async () => {
     await AuthService.logout(refreshToken);
 
     TokenService.removeTokens();
+    queryClient.resetQueries({ queryKey: QUERYKEY.USER, exact: true });
   } catch (err) {
   } finally {
     dispatch(removeUser());

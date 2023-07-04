@@ -45,11 +45,10 @@ export const Modal = ({ children }) => {
   return createPortal(
     <Overlay>
       <ModalWrapper>
-        <Form>
-          <button type="button" onClick={handleClose}>
-            close
-          </button>
-        </Form>
+        {/*  */}
+        <button type="button" onClick={handleClose}>
+          close
+        </button>
         <Content>{children}</Content>
       </ModalWrapper>
     </Overlay>,
